@@ -62,9 +62,4 @@ Feel free to fork the repository and contribute. Open an issue if you find any b
 ### 🎯 **Happy Coding!** 🚀
 ```
 
----
 
-### **How to Use It on GitHub**
-1. Replace `"https://github.com/your-username/django-todo-app.git"` with your actual repository URL.  
-2. If you have an image of your app, upload it to **GitHub Issues** or **Imgur** and replace `"https://your-image-link.png"` with the correct URL.  
-3. Commit the `README.md` file to your GitHub repo.  
