@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> <!-- Defines the character encoding for proper text display -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ensures responsiveness on different screen sizes -->
+    <title>To-Do List</title> <!-- Sets the page title -->
+
+    <style>
+        /* Basic styling for the page */
+        body { 
+            font-family: Arial, sans-serif; /* Sets font style */
+            text-align: center; /* Centers text content */
+        }
+        ul { 
+            list-style-type: none; /* Removes default bullet points */
+            padding: 0; /* Removes default padding */
+        }
+        li { 
+            padding: 10px; /* Adds space around each list item */
+            border-bottom: 1px solid #ddd; /* Adds a light border below each task */
+        }
+        .completed { 
+            text-decoration: line-through; /* Strikes through completed tasks */
+            color: grey; /* Changes color of completed tasks */
+        }
+    </style>
+</head>
+<body>
+    <h1>To-Do List</h1> <!-- Main heading of the page -->
+
+    <!-- Form to add a new task -->
+    <form action="{% url 'add_task' %}" method="POST"> 
+        {% csrf_token %} <!-- Django's security token to prevent CSRF attacks -->
+        <input type="text" name="title" placeholder="New Task" required> <!-- Input field for task title -->
+        <button type="submit">Add</button> <!-- Submit button to add the task -->
+    </form>
+
+    <!-- Display the list of tasks -->
+    <ul>
+        {% for task in tasks %} <!-- Loop through tasks passed from the Django view -->
+            <li class="{% if task.completed %}completed{% endif %}"> 
+                {{ task.title }} <!-- Display task title -->
+                
+                {% if not task.completed %} <!-- If the task is not completed, show a complete button -->
+                    <a href="{% url 'complete_task' task.id %}">✅</a> <!-- Link to mark task as completed -->
+                {% endif %}
+                
+                <a href="{% url 'delete_task' task.id %}">❌</a> <!-- Link to delete the task -->
+            </li>
+        {% empty %} <!-- If there are no tasks, show this message -->
+            <p>No tasks yet!</p>
+        {% endfor %}
+    </ul>
+</body>
+</html>
